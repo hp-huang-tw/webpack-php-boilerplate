@@ -1,0 +1,133 @@
+@import "compass";
+@import "lib/rem";
+// Variables
+$font-stack : 
+'Noto Sans',
+'Noto Sans CJK TC',
+-apple-system,
+system,
+"Helvetica Neue",
+Helvetica,
+Arial,
+sans-serif;
+
+$backgroundColor: rgba(0, 0, 0, 0.1);
+$textColor: rgba(0, 0, 0, 0.7);
+$textSize: 32pt;
+$buttonColor: #FFFFFF;
+$buttonTextColor: rgba(0, 0, 0, 255);
+$buttonHeight: 83px;
+
+$buttonBorderHeight: ($buttonHeight*0.55);
+$indexElements: main,
+information,
+button;
+html,
+body,
+button {
+    font-family: $font-stack;
+    background: #FFFFFF;
+    text-align: center;
+    margin: 0;
+    font-weight: 500;
+}
+
+*:focus {
+    outline: none;
+}
+
+img {
+    width: 100%;
+}
+
+form {
+    margin-bottom: 0px;
+}
+
+.wrap {
+    display: flex;
+    flex-flow: column;
+    height: 100%;
+}
+
+.headline-container {
+    flex: 0 1 auto;
+    z-index: index($indexElements, main);
+}
+
+.information-container {
+    flex: 1 1 auto;
+    z-index: index($indexElements, information);
+    color: $textColor;
+    background: $backgroundColor;
+    display: flex;
+    justify-content: center;
+    flex-flow: column;
+    font-size: $textSize;
+    @include rem('font-size', 18rem);
+}
+
+.button-container {
+    flex: 0 1 $buttonHeight;
+    width: 100%;
+    height: auto;
+}
+
+.button {
+    @include rem('font-size', 27rem);
+    z-index: index($indexElements, button);
+    width: 100%;
+    height: $buttonHeight;
+    background: $buttonColor;
+    color: $buttonTextColor;
+    border: 0px;
+    cursor: pointer;
+    span {
+        vertical-align: middle;
+    }
+}
+
+.icon-arrow {
+    $raito: (24px/36px);
+    width: (24px*$raito);
+    height: (36px*$raito);
+    margin-left: 1px;
+    vertical-align: middle;
+}
+
+// sharing button
+#share {
+    .button {
+        position: relative;
+
+        &.to_facebook::after,
+        &.to_line::after {
+            position: absolute;
+            content: "";
+            width: 1px;
+            height: $buttonBorderHeight;
+            right: 0;
+            background: #fff;
+            top: 50%;
+            transform: translate(0, -50%);
+        }
+
+        @include rem('font-size', 14rem);
+        @extend %button--triple-column;
+        img {
+            width: 65px;
+            height: auto;
+        }
+        
+    }
+}
+
+%button--two-column {
+    float: left;
+    width: 50%;
+}
+
+%button--triple-column {
+    float: left;
+    width: (100% / 3);
+}

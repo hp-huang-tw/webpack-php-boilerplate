@@ -1,0 +1,37 @@
+@function parseInt($n) {
+  @return $n / ($n * 0 + 1);
+}
+
+@mixin rem($property, $values) {
+  $px: ();
+  $rem: ();
+
+  @each $value in $values {
+    @if $value == 0 or $value == auto {
+      $px: append($px, $value);
+      $rem: append($rem, $value);
+    }
+    @else {
+      $unit: unit($value);
+      $val: parseInt($value);
+
+      @if $unit == "px" {
+        $px: append($px, $value);
+        $rem: append($rem, $val / 10 + rem);
+      }
+
+      @if $unit == "rem" {
+        $px: append($px, $val + px);
+        $rem: append($rem, $value / 16);
+      }
+    }
+  }
+
+  @if $px == $rem {
+    #{$property}: $px;
+  }
+  @else {
+    #{$property}: $px;
+    #{$property}: $rem;
+  }
+}
